@@ -1,0 +1,74 @@
+#include<iostream>
+using namespace std;
+class node
+{
+public:
+    node *parent;
+    node *leftc;
+    node *rightc;
+    int data;
+    node()
+    {
+        parent=leftc=rightc=NULL;
+    }
+};
+class btree{
+public:
+    node *root=NULL;
+/*btree()
+    {
+        root->parent=root->leftc=root->rightc=NULL;
+        }*/
+    void insert(int val)
+    {
+        node *temp=new node;
+        temp->data=val;
+        temp->parent=temp->leftc=temp->rightc=NULL;
+        if(root==NULL)
+        {
+            root=temp;
+        }
+        else{
+            node *curr=new node;
+            curr=root;
+            while(true)
+            {
+                if(val<curr->data){
+                    if(curr->leftc==NULL){
+                    curr->leftc=temp;
+                        temp->parent=curr;
+                        break;
+                    }
+                    else
+                        curr=curr->leftc;
+                }
+                else{
+                    if(curr->rightc==NULL){
+                        curr->rightc=temp;
+                        temp->parent=curr;
+                        break;
+                        }
+                    else
+                        curr=curr->rightc;
+                }
+        }
+    }
+    }
+    void display(node *temp)
+    {
+        if(temp==NULL)
+            return;
+        display(temp->leftc);
+        cout<<temp->data;
+        display(temp->rightc);
+    }
+    };
+int main()
+{
+    btree obj;
+    obj.insert(1);
+    obj.insert(7);
+    obj.insert(5);
+    obj.insert(9);
+    obj.display(obj.root);
+}
